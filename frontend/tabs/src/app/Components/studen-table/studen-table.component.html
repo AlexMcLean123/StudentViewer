@@ -1,0 +1,28 @@
+<ion-list class="class">
+  <ion-card *ngFor="let student of students">
+    <ion-grid>
+      <ion-row>
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="assets/avatar.png">
+          </ion-avatar>
+          <ion-label>{{student.name}}</ion-label>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-icon class="ion-padding" item-start name="body-outline"></ion-icon>
+            {{student.age}}
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-icon class="ion-padding" item-start name="file-tray-outline"></ion-icon>
+            {{student.email}}
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-list>
