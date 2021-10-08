@@ -1,38 +1,61 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Student } from '../model/student';
-import { tap, delay } from 'rxjs/operators';
+import { tap, delay, map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  _id: number;
-  name: string;
-  dob: string;
-  email: string;
+  private student: Student = {
+    name: "Alex",
+    dob: "2008-01-01",
+    email: "TESTER@g,al.com"
+  }
 
-  url = "http://localhost:8080/api/v1/student";
+  private url = "http://localhost:8080/api/v1/student";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private httpClient: HttpClient) { 
+
+  private subject = new Subject<any>();
+
+
+
+  constructor(private httpClient: HttpClient) {
   }
 
-    getStudents(): Observable<Student[]>{
-      console.log("service")
-      return this.httpClient.get<Student[]>(this.url).pipe(
-        tap(res => console.log('All: ' + JSON.stringify(res))));
-    }
+  getStudents(): Observable<Student[]> {
+    console.log("service")
+    return this.httpClient.get<Student[]>(this.url).pipe(
+      tap(res => console.log('All: ' + JSON.stringify(res))));
+  }
 
-    getAll(): Observable<any> {
-      console.log("getall")
-      return this.httpClient.get<Student[]>("http://localhost:8080/api/v1/student");
-    }
+  //Value is any string message or boolean value
+  //this will notify that you have added or deleted the data successfully and you //want other component to listen that
+
+  sendNotification(value: any) {
+    this.subject.next({ text: value });
+  }
+
+
+  getNotification() {
+    return this.subject.asObservable();
+  }
+
+   addStudent() {
+    const headers = { 'content-type': 'application/json'}  
+    const item = JSON.stringify(this.student);
+    this.httpClient.post(this.url, item,{'headers':headers}).subscribe(data => {
+      console.log(data);
+      this.sendNotification(true)
+
+    });
 
   }
 
+}

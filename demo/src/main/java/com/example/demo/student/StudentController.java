@@ -18,12 +18,13 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @CrossOrigin(origins = "http://http://localhost:8101")
+    @CrossOrigin(origins = "http://localhost:8101")
     @GetMapping
     public List<Student> getStudents() {
         return studentService.getStudents();
     }
 
+    @CrossOrigin(origins = "http://localhost:8101")
     @PostMapping
     //request body to map payload to object
     public void registerNewStudent(@RequestBody Student student) {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StudentService } from '../student.service/student.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(private service: StudentService) {}
+
+
+  click(){
+    this.service.addStudent();
+  }
+
+  ngOnInit(){
+    console.log("hello from init");
+    this.click();
+  }
 
 }
