@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
+import { Student } from '../model/student';
 import { StudentService } from '../student.service/student.service';
 
 @Component({
@@ -8,16 +11,21 @@ import { StudentService } from '../student.service/student.service';
 })
 export class Tab2Page {
 
-  constructor(private service: StudentService) {}
+  constructor(private service: StudentService, private fb: FormBuilder) { }
 
 
-  click(){
-    this.service.addStudent();
+  student = new Student();
+  form: FormGroup;
+
+  postForm() {
+    this.service.addStudent(this.student)
+    this.student.dob ='';
+    this.student.email ='';
+    this.student.name ='';
   }
 
-  ngOnInit(){
-    console.log("hello from init");
-    this.click();
+  ngOnInit() {
+
   }
 
 }
