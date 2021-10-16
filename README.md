@@ -1,2 +1,2 @@
 # student-API
-A basic Spring Boot API utlising Postgres database. 
+Full Stack multi platform application - Spring Boot, PostGres, Ionic (Angular)
