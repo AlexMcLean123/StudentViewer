@@ -14,8 +14,17 @@ export class StudentService {
 
   private subject = new Subject<any>();
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'my-auth-token'
+    })
+  };
+
   constructor(private httpClient: HttpClient, private toastr: ToastrService) {
   }
+
+
 
   getStudents(): Observable<Student[]> {
     console.log("service")
@@ -25,15 +34,6 @@ export class StudentService {
 
   //Value is any string message or boolean value
   //this will notify that you have added or deleted the data successfully and you //want other component to listen that
-
-  sendNotification(value: any) {
-    this.subject.next({ text: value });
-  }
-
-
-  getNotification() {
-    return this.subject.asObservable();
-  }
 
 
   async addStudent(myStudent: Student) {
@@ -56,8 +56,32 @@ export class StudentService {
         }
       });
   };
+
+  deleteStudent(id) {
+    return this.httpClient.delete(this.url + '/' + id).forEach(
+      data => {
+        console.log(data);
+        this.showDelete();
+        this.sendNotification(true);
+      })
+  }
+
+  editStudent(student) {
+    return this.httpClient.put(this.url + '/' + student.id, student, this.httpOptions).subscribe(
+      data => {
+        console.log(data)
+        this.showEditSuccess();
+      })
+  }
+
   showSuccess() {
     this.toastr.success('Student Added', 'Success');
+  }
+  showDelete() {
+    this.toastr.success("Student Deleted")
+  }
+  showEditSuccess() {
+    this.toastr.success("Student updated")
   }
   showEmailError() {
     this.toastr.error('Email Address already taken', 'Error');
@@ -65,6 +89,18 @@ export class StudentService {
   showParseError() {
     this.toastr.error('Invalid Date Entered', 'Bad Request');
   }
+
+
+  sendNotification(value: any) {
+    this.subject.next({ text: value });
+  }
+
+
+  getNotification() {
+    return this.subject.asObservable();
+  }
+
+
 
 
 

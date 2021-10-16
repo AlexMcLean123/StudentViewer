@@ -11,21 +11,7 @@ import { StudentService } from '../student.service/student.service';
 })
 export class Tab2Page {
 
-  constructor(private service: StudentService, private fb: FormBuilder) { }
+  constructor() { }
 
-
-  student = new Student();
-  form: FormGroup;
-
-  postForm() {
-    this.service.addStudent(this.student)
-    this.student.dob ='';
-    this.student.email ='';
-    this.student.name ='';
-  }
-
-  ngOnInit() {
-
-  }
 
 }

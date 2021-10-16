@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
+import { Student } from 'src/app/model/student';
+import { StudentService } from 'src/app/student.service/student.service';
+
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
 
-  constructor(private service: StudentService, private fb: FormBuilder) { }
+  constructor(private service: StudentService) { }
 
 
   student = new Student();
-  form: FormGroup;
 
   postForm() {
-    this.service.addStudent(this.student)
+    this.service.addStudent(this.student);
     this.student.dob ='';
     this.student.email ='';
     this.student.name ='';
@@ -23,3 +27,5 @@ export class FormComponent implements OnInit {
   ngOnInit() {
 
   }
+
+}

@@ -1,8 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
-    </ion-title>
+      Edit Student List </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +12,28 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
-</ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card *ngFor="let student of students">
+            <ion-card-title class="ion-padding">
+              {{student.name}}
+            </ion-card-title>
+            <ion-item>
+              <ion-button (click)="deleteStudent(student)" style="display:inline" slot="end" color="danger">
+                <ion-icon slot="end" name="trash-outline"></ion-icon>
+                Delete
+              </ion-button>
+              <ion-button (click)="openModal(student)" style="display:inline" slot="start" color="warning">
+                <ion-icon slot="end" name="pencil-outline"></ion-icon>
+                Edit
+              </ion-button>
+            </ion-item>
+          </ion-card>
+        </ion-card>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>

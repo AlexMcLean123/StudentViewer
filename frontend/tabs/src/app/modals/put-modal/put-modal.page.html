@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Edit {{student.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+
+      <ion-col text-center>
+        <ion-card class ="ion-padding"> 
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Student Name</ion-label>
+            <ion-input placeholder="First Name Last Name" class="form-control" [(ngModel)]="student.name" #name
+              name="name">
+            </ion-input>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Student DOB</ion-label>
+            <ion-input pattern="^(19|20)\d\d[\-](0?[1-9]|1[012])[\-](0?[1-9]|[12][0-9]|3[01])$" placeholder="YYYY-MM-DD"
+              class="form-control" [(ngModel)]="student.dob" name="dob" #dob></ion-input>
+          </ion-item>
+          <ion-item class="ion-margin">
+            <ion-label position="floating">Student Email Address</ion-label>
+            <ion-input placeholder="example@example.com"
+              pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
+              type="email" class="form-control" [(ngModel)]="student.email" name="email" #email></ion-input>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col text-center>
+        <ion-button color ="success" [disabled]="!student.dob || !student.email || !student.name" (click)="closeModal(student)">Update Student</ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -22,10 +22,7 @@ export class StudenTableComponent implements OnInit {
     });
   }
 
-
-
-
-
+  
   getStudents() {
     this.service.getStudents().subscribe(res => {
       this.students = res
